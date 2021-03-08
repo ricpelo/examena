@@ -75,4 +75,19 @@ class Artistas extends \yii\db\ActiveRecord
         return $this->hasMany(Albumes::class, ['id' => 'albumes_id'])
             ->via('albumesTemas');
     }
+
+    public function beforeDelete()
+    {
+        if (!parent::beforeDelete()) {
+            return false;
+        }
+        
+        foreach ($this->temas as $tema) {
+            if ($tema->getAlbumes()->exists()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
