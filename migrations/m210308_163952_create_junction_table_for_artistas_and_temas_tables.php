@@ -17,8 +17,8 @@ class m210308_163952_create_junction_table_for_artistas_and_temas_tables extends
     public function safeUp()
     {
         $this->createTable('{{%artistas_temas}}', [
-            'artistas_id' => $this->bigInteger(),
-            'temas_id' => $this->bigInteger(),
+            'artistas_id' => $this->integer(),
+            'temas_id' => $this->integer(),
             'PRIMARY KEY(artistas_id, temas_id)',
         ]);
 

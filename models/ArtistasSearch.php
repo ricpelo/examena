@@ -4,13 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Temas;
-use Yii;
+use app\models\Artistas;
 
 /**
- * TemasSearch represents the model behind the search form of `app\models\Temas`.
+ * ArtistasSearch represents the model behind the search form of `app\models\Artistas`.
  */
-class TemasSearch extends Temas
+class ArtistasSearch extends Artistas
 {
     /**
      * {@inheritdoc}
@@ -19,8 +18,7 @@ class TemasSearch extends Temas
     {
         return [
             [['id'], 'integer'],
-            [['titulo', 'duracion'], 'safe'],
-            [['anyo'], 'number'],
+            [['nombre'], 'safe'],
         ];
     }
 
@@ -42,9 +40,7 @@ class TemasSearch extends Temas
      */
     public function search($params)
     {
-        $query = Temas::find()
-            ->joinWith('artistasTemas')
-            ->groupBy('temas.id');
+        $query = Artistas::find();
 
         // add conditions that should always apply here
 
@@ -63,11 +59,9 @@ class TemasSearch extends Temas
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'anyo' => $this->anyo,
         ]);
 
-        $query->andFilterWhere(['ilike', 'titulo', $this->titulo])
-            ->andFilterWhere(['ilike', 'duracion', $this->duracion]);
+        $query->andFilterWhere(['ilike', 'nombre', $this->nombre]);
 
         return $dataProvider;
     }

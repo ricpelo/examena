@@ -63,4 +63,16 @@ class Artistas extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Temas::class, ['id' => 'temas_id'])->viaTable('artistas_temas', ['artistas_id' => 'id']);
     }
+
+    public function getAlbumesTemas()
+    {
+        return $this->hasMany(AlbumesTemas::class, ['temas_id' => 'id'])
+            ->via('temas');
+    }
+
+    public function getAlbumes()
+    {
+        return $this->hasMany(Albumes::class, ['id' => 'albumes_id'])
+            ->via('albumesTemas');
+    }
 }

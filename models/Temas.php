@@ -19,6 +19,9 @@ use Yii;
  */
 class Temas extends \yii\db\ActiveRecord
 {
+    // public $countArtistas;
+    // public $countAlbumes;
+
     /**
      * {@inheritdoc}
      */
@@ -49,7 +52,27 @@ class Temas extends \yii\db\ActiveRecord
             'titulo' => 'Titulo',
             'anyo' => 'Anyo',
             'duracion' => 'Duracion',
+            'countArtistas' => 'Núm. artistas',
+            'countAlbumes' => 'Núm. álbumes',
         ];
+    }
+
+    public function attributes()
+    {
+        return array_merge(parent::attributes(), [
+            'countArtistas',
+            'countAlbumes',
+        ]);
+    }
+
+    public function getCountArtistas()
+    {
+        return $this->getArtistas()->count();
+    }
+
+    public function getCountAlbumes()
+    {
+        return $this->getAlbumes()->count();
     }
 
     /**
