@@ -79,7 +79,7 @@ class Temas extends \yii\db\ActiveRecord
      */
     public function getArtistasTemas()
     {
-        return $this->hasMany(ArtistasTemas::className(), ['temas_id' => 'id'])->inverseOf('temas');
+        return $this->hasMany(ArtistasTemas::class, ['temas_id' => 'id'])->inverseOf('tema');
     }
 
     /**
@@ -89,6 +89,6 @@ class Temas extends \yii\db\ActiveRecord
      */
     public function getArtistas()
     {
-        return $this->hasMany(Artistas::className(), ['id' => 'artistas_id'])->viaTable('artistas_temas', ['temas_id' => 'id']);
+        return $this->hasMany(Artistas::class, ['id' => 'artistas_id'])->viaTable('artistas_temas', ['temas_id' => 'id']);
     }
 }

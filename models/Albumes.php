@@ -47,6 +47,11 @@ class Albumes extends \yii\db\ActiveRecord
         ];
     }
 
+    public function getDuracionTotal()
+    {
+        return $this->getTemas()->sum('duracion');
+    }
+
     /**
      * Gets query for [[AlbumesTemas]].
      *

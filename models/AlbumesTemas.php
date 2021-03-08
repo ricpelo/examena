@@ -35,6 +35,12 @@ class AlbumesTemas extends \yii\db\ActiveRecord
             [['albumes_id', 'temas_id'], 'unique', 'targetAttribute' => ['albumes_id', 'temas_id']],
             [['albumes_id'], 'exist', 'skipOnError' => true, 'targetClass' => Albumes::className(), 'targetAttribute' => ['albumes_id' => 'id']],
             [['temas_id'], 'exist', 'skipOnError' => true, 'targetClass' => Temas::className(), 'targetAttribute' => ['temas_id' => 'id']],
+            [['albumes_id'], function ($attribute, $params) {
+                $tema = Temas::findOne($this->temas_id);
+                if (!$tema->getArtistas()->exists()) {
+                    $this->addError($attribute, 'El tema que se quiere meter en el álbum debe tener algún artista.');
+                }
+            }]
         ];
     }
 
